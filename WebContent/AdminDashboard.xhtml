@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+<link rel="stylesheet" href="css/style.css" ></link>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"></link>
+    
+    <title>Admin Dashboard</title>
+</h:head>
+<h:body>
+    <f:view>
+        <h:form>
+            <p>
+            	<p>Hi, #{user.username}</p>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="Logout" action="#{registercon.logout}"></h:commandButton>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="Edit Profile" action="#{registercon.edituser(user.username)}"/><br/><br/>
+            </p>
+            <h:dataTable binding="#{table}" value="#{registercon.managerslist()}" var="managerlis">
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{table.rowIndex + 1}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+					<h:outputText value="#{managerlis.name}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">User Name</f:facet>
+					<h:outputText value="#{managerlis.username}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Email</f:facet>
+					<h:outputText value="#{managerlis.email}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Fees</f:facet>
+					<h:outputText value="#{managerlis.fees}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Approve</f:facet>
+					<h:commandButton action="#{registercon.approvemanager(managerlis.username)}" value="Approve" class="btn btn-primary">
+					</h:commandButton>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Decline</f:facet>
+					<h:commandButton action="#{registercon.declinemanager(managerlis.username)}" value="Decline" class="btn btn-danger">
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+            
+        </h:form>
+    </f:view>
+</h:body>
+</html>

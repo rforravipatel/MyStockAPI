@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+<link rel="stylesheet" href="css/style.css" ></link>
+	<link rel="stylesheet" href="css/style.css" ></link>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"></link>
+    
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"></link>
+    
+    <title>ManagerDashboard</title>
+</h:head>
+<h:body>
+    <f:view>
+        <h:form>
+            <p>
+            	<p>Hello #{user.username}</p>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="Logout" action="#{registercon.logout}"></h:commandButton>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="Edit Profile" action="#{registercon.edituser(user.username)}"/>
+                
+                <h:commandButton styleClass="btn btn-large btn-primary" value="My Stocks" action="/MyStocks.xhtml?faces-redirect=true"/>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="My Watchlist" action="/MyWatchlist.xhtml?faces-redirect=true"/>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="View History" action="/History.xhtml?faces-redirect=true"/>
+                
+                <h2>Client Requests</h2>
+            </p>
+            <h:dataTable binding="#{table}" value="#{manageruser.clientlist()}" var="client">
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{table.rowIndex + 1}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Client Name</f:facet>
+					<h:outputText value="#{client.name}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Amount to buy</f:facet>
+					<h:outputText value="#{client.requestedamt}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Amount to sell</f:facet>
+					<h:outputText value="#{client.selluseramt}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Email</f:facet>
+					<h:outputText value="#{client.email}" />
+				</h:column>
+				
+			</h:dataTable>
+			
+         </h:form>
+         <br></br><br></br>
+         <h2>Select stocks to watch history</h2>
+         <center>
+                	<div >
+
+                    <h:form>
+                        <label for="sel1">Stock: </label>
+                        <h:selectOneMenu id="symbol" value="#{manageruser.mpursymbol}">
+                            <f:selectItems value="#{stockApiBean.availableSymbols}" />
+                        </h:selectOneMenu>
+								
+                        <label for="sel1">Interval: </label>
+                        <h:selectOneMenu id="interval" value="#{manageruser.minterval}">
+                            <f:selectItems value="#{stockApiBean.availableIntervals}" />
+                        </h:selectOneMenu>
+                        <br />
+                        <h:commandButton value="Get History" action="#{manageruser.timeseriesmanager}" styleClass="btn btn-success" />
+                        <h:commandButton value="Add into Watchlist" action="#{myWatchlist.addstock}" styleClass="btn btn-success" />
+                    </h:form>
+                </div>
+                <h:panelGroup rendered="#{not empty manageruser.table1Markup}">
+                    <h:outputText value="#{manageruser.table1Markup}" escape="false" styleClass="preformatted" />
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty manageruser.table2Markup}">
+                    <h:outputText value="#{manageruser.table2Markup}" escape="false" styleClass="preformatted" />
+                </h:panelGroup>
+               </center> 
+         
+    </f:view>
+</h:body>
+</html>

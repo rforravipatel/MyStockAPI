@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	
+	<h:head>
+		<title>Register</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    	
+    	<link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet"></link>
+    	<link href="../assets/css/bootstrap-responsive.css" rel="stylesheet"></link>
+    	<style type="text/css"/>
+	</h:head>
+	<h:body>
+		<center>
+			<h:form><br/>
+				<center><H3>Client Registration</H3></center>
+				
+				Name: <h:inputText id="name" styleClass="form-control" value="#{registercon.user.name}" a:placeholder="Name" required="true" requiredMessage="Enter the last name"/>
+				<h:message for="name" style="color:red"/><br/><br/>
+				
+				Email address: <h:inputText id="email" styleClass="form-control" value="#{registercon.user.email}" a:placeholder="Email address" required="true" requiredMessage="Enter the email" validatorMessage="Invalid email">
+				<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.(com|net|‌​org|edu)"/></h:inputText>
+				<h:message for="email" style="color:red"/><br/><br/>
+				
+				Username: <h:inputText id="username" styleClass="form-control" value="#{registercon.user.username}" a:placeholder="Username" required="true" requiredMessage="Enter the Username"/>
+				<h:message for="username" style="color:red"/><br/><br/>
+			
+				Password: <h:inputSecret id="password" styleClass="form-control" value="#{registercon.user.password}" a:placeholder="Password" required="true" requiredMessage="Enter the password" validatorMessage="Password must contain at leat one a to z, one special character and one number.">
+				<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[@#$%]).{6,20})"></f:validateRegex></h:inputSecret>
+				<h:message for="password" style="color:red"/><br/><br/>
+				
+				<h:commandButton styleClass="btn btn-large btn-primary" value="Register" action="#{registercon.add}"/><br/><br/>
+				You want to be manager? Register Here : <h:outputLink value="faces/ManagerRegister.xhtml">Manager Register</h:outputLink><br/>
+				If you have an account click on below link<br/> <h:outputLink value="faces/Login.xhtml">Login</h:outputLink>
+			</h:form>
+			</center>
+			
+			<script src="http://code.jquery.com/jquery.js"></script>
+    		<script src="js/bootstrap.min.js"></script>
+	</h:body>
+</html> 

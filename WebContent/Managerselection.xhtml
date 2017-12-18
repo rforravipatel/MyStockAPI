@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+    <title>UserDashboard</title>
+</h:head>
+<h:body>
+    <f:view>
+        <h:form>
+            <p>
+            	<p>Hello #{user.username}</p>
+            	<h:commandButton styleClass="btn btn-large btn-primary" value="Logout" action="#{registercon.logout}"></h:commandButton>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="Edit Profile" action="#{registercon.edituser(user.username)}"/>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="Manager" action="/Managerselection.xhtml?faces-redirect=true"/>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="My Stocks" action="/MyStocks.xhtml?faces-redirect=true"/>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="My Watchlist" action="/MyWatchlist.xhtml?faces-redirect=true"/>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="View History" action="/History.xhtml?faces-redirect=true"/>
+                <br />
+            	
+            	<p>Enter amount to request manger to buy stock</p>
+            	<h:inputText id="reqamt" styleClass="form-control" value="#{clientuser.reqamt}" a:placeholder="reqamt"  requiredMessage="Enter the amount"/>
+            	<h:commandButton action="#{clientuser.sendmoney(clientuser.reqamt)}" value="Send money for buy" class="btn btn-primary"/>
+            	<br></br>
+            	<p>Enter amount to request manger to sell stock</p>
+            	
+            	<h:inputText id="sellamt" styleClass="form-control" value="#{clientuser.sellamt}" a:placeholder="sellamt"  requiredMessage="Enter the amount"/>	
+            	<h:commandButton action="#{clientuser.sendmoneyforsell(clientuser.sellamt)}" value="Send money for sale" class="btn btn-primary"/>
+            	<br></br>
+				<h:message for="amount" style="color:red"/><br/><br/>
+                <h:commandLink value="logout" action="#{registercon.logout}" /><br /><br/>
+                <h:dataTable binding="#{table}" value="#{clientuser.managerlisting()}" var="manager">
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{table.rowIndex + 1}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+					<h:outputText value="#{manager.name}" />
+				</h:column>
+				
+			 	<h:column>
+					<f:facet name="header">User Name</f:facet>
+					<h:outputText value="#{manager.username}" />
+				</h:column>
+			 	
+				<h:column>
+					<f:facet name="header">Email</f:facet>
+					<h:outputText value="#{manager.email}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Fees</f:facet>
+					<h:outputText value="#{manager.fees}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Select</f:facet>
+					<h:commandButton action="#{clientuser.selectmanager(manager.username)}" value="Select" class="btn btn-primary">
+					</h:commandButton>
+				</h:column>
+				
+			</h:dataTable>
+                            	
+            </p>
+        </h:form>
+    </f:view>
+</h:body>
+</html>

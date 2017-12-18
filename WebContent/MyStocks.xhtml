@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<link rel="stylesheet" href="css/style.css" ></link>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"></link>
+    <title>UserDashboard</title>
+</h:head>
+	<h:body>
+		<f:view>
+        <h:form>
+            <p>
+            	<p>Hi, #{user.username}</p>
+               <h:commandButton styleClass="btn btn-large btn-primary" value="Logout" action="#{registercon.logout}"></h:commandButton>
+               <h:commandButton styleClass="btn btn-large btn-primary" value="Home" action="/UserDashboard.xhtml?faces-redirect=true"/><br></br><br></br> 
+               
+            </p>
+            <h:dataTable binding="#{table}" value="#{mystocksman.mystocklist()}" var="mystoc">
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{table.rowIndex + 1}" />
+				</h:column>
+				
+				 <h:column>
+					<f:facet name="header">TID</f:facet>
+					<h:outputText value="#{mystoc.transactionid}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Stock Symbol</f:facet>
+					<h:outputText value="#{mystoc.symbol}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Quantity</f:facet>
+					<h:outputText value="#{mystoc.qty}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Price</f:facet>
+					<h:outputText value="#{mystoc.price}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Amount</f:facet>
+					<h:outputText value="#{mystoc.amt}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Sell</f:facet>
+					<h:commandButton action="#{mystocksman.sellingstock(mystoc.transactionid)}" value="Sell" class="btn btn-primary">
+					</h:commandButton>
+				</h:column>
+				
+			</h:dataTable>
+            
+        </h:form>
+        
+        <h:panelGroup rendered="#{not empty mystocksman.table3Markup}">
+                    <h:outputText value="#{mystocksman.table3Markup}" escape="false" styleClass="preformatted" />
+                </h:panelGroup>
+
+                
+        
+    </f:view>
+	</h:body>
+	
+</html>

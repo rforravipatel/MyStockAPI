@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<link rel="stylesheet" href="css/style.css" ></link>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"></link>
+    <title>UserDashboard</title>
+</h:head>
+<h:body>
+<h:messages globalOnly="true" />
+    <f:view>
+        <h:form>
+         		
+            	<p>Hello #{user.username}</p>
+                
+                <h:commandButton styleClass="btn btn-large btn-primary" value="Logout" action="#{registercon.logout}"></h:commandButton>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="Edit Profile" action="#{registercon.edituser(user.username)}"/>
+                
+                <h:commandButton styleClass="btn btn-large btn-primary" value="My Stocks" action="/MyStocks.xhtml?faces-redirect=true"/>
+                
+                <h:commandButton styleClass="btn btn-large btn-primary" value="View History" action="/History.xhtml?faces-redirect=true"/>
+                
+                
+                <br/><br/><br/><br/>
+                
+                <center>
+                	<div >
+
+                    <h:form>
+                        <h:dataTable binding="#{table}" value="#{myWatchlist.getwatchliststocks()}" var="stocklis">
+                        	<h:column>
+					<f:facet name="header">Symbol</f:facet>
+					<h:outputText value="#{stocklis.symbol}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:commandButton value="View Details" action="#{myWatchlist.timeserieswatchlist(stocklis.symbol)}" styleClass="btn btn-success" />
+				
+				</h:column>
+                        </h:dataTable>
+                         
+                    </h:form>
+                </div>
+				
+                <h:panelGroup rendered="#{not empty myWatchlist.table1Markup}">
+                    <h:outputText value="#{myWatchlist.table1Markup}" escape="false" styleClass="preformatted" />
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty myWatchlist.table2Markup}">
+                    <h:outputText value="#{myWatchlist.table2Markup}" escape="false" styleClass="preformatted" />
+                </h:panelGroup>                
+
+                
+								                	
+                </center>
+            
+        </h:form>
+    </f:view>
+</h:body>
+</html>

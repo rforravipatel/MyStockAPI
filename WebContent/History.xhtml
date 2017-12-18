@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<link rel="stylesheet" href="css/style.css" ></link>
+	<link rel="stylesheet" href="css/style.css" ></link>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"></link>
+    
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"></link>
+    <title>UserDashboard</title>
+</h:head>
+	<h:body>
+		<f:view>
+        <h:form>
+            <p>
+            	<p>Hi, #{user.username}</p>
+            	<h:commandButton styleClass="btn btn-large btn-primary" value="Logout" action="#{registercon.logout}"></h:commandButton>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="Edit Profile" action="#{registercon.edituser(user.username)}"/>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="Manager" action="/Managerselection.xhtml?faces-redirect=true"/>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="My Stocks" action="/MyStocks.xhtml?faces-redirect=true"/>
+                <h:commandButton styleClass="btn btn-large btn-primary" value="My Watchlist" action="/MyWatchlist.xhtml?faces-redirect=true"/>
+                
+                
+            </p>
+            <p>Balance : #{userHistory.hbalance}</p>
+            <h:dataTable binding="#{table}" value="#{userHistory.showdetails()}" var="mystoc">
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{table.rowIndex + 1}" />
+				</h:column>
+				
+				
+				<h:column>
+					<f:facet name="header">Stock Symbol</f:facet>
+					<h:outputText value="#{mystoc.hsymbol}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Quantity</f:facet>
+					<h:outputText value="#{mystoc.hqty}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Price</f:facet>
+					<h:outputText value="#{mystoc.hprice}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Amount</f:facet>
+					<h:outputText value="#{mystoc.hamt}" />
+				</h:column>
+
+				
+			</h:dataTable>
+            
+        </h:form>
+        
+        
+                
+        
+    </f:view>
+	</h:body>
+	
+</html>
